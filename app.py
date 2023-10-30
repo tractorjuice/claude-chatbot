@@ -62,7 +62,7 @@ if user_claude_api_key:
                 st.error("Another non-200-range status code was received")
                 st.error(e.status_code)
                 st.error(e.response)
-            st.write("### Answer")
+        with st.chat_message("assistant"):
             st.write(response.completion)
         st.session_state.messages.append({"role": "assistant", "content": response.completion})
         st.code(response.completion)
