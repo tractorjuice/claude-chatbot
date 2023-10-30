@@ -38,7 +38,7 @@ else:
 
 if user_claude_api_key:
     stream = anthropic.completions.create(
-        prompt=f"{HUMAN_PROMPT} Your prompt here{AI_PROMPT}",
+        prompt=f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT}",
         max_tokens_to_sample=300,
         model="claude-2",
         stream=True,
