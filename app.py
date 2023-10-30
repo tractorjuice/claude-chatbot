@@ -51,7 +51,7 @@ if user_claude_api_key:
             full_response = ""
             for response in anthropic.completions.create(
                 prompt,
-                max_tokens_to_sample=300,
+                #max_tokens_to_sample=300,
                 model="claude-2",
                 stream=True,
             ):
