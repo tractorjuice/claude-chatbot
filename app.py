@@ -52,7 +52,7 @@ if user_claude_api_key:
             for response in anthropic.completions.create(
                 prompt,
                 #max_tokens_to_sample=300,
-                model="claude-2",
+                model=MODEL,
                 stream=True,
             ):
                 full_response += response.choices[0].delta.get("content", "")
