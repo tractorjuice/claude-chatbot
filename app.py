@@ -49,7 +49,7 @@ if user_claude_api_key:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            stream = anthropic.completions.create(
+            for response in anthropic.completions.create(
                 prompt,
                 max_tokens_to_sample=300,
                 model="claude-2",
@@ -59,4 +59,3 @@ if user_claude_api_key:
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        
