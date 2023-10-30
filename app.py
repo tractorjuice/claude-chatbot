@@ -1,7 +1,7 @@
 #Importing required packages
 import streamlit as st
 import promptlayer
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+from anthropic import Anthropic, anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
 MODEL = "claude-2"
@@ -24,22 +24,24 @@ user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", pla
 if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
 
-if user_claude_api_key:
-    # If the user has provided an API key, use it
-    # Swap out Anthropic Claude for promptlayer
-    promptlayer.api_key = st.secrets["PROMPTLAYER"]
-    #client = promptlayer.anthropic_client
-    anthropic = Anthropic(
-      # defaults to os.environ.get("ANTHROPIC_API_KEY")
-      api_key=user_claude_api_key,
-    )
-else:
-    st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
+#if user_claude_api_key:
+#    # If the user has provided an API key, use it
+#    # Swap out Anthropic Claude for promptlayer
+#    promptlayer.api_key = st.secrets["PROMPTLAYER"]
+#    #client = promptlayer.anthropic_client
+#    anthropic = Anthropic(
+#      # defaults to os.environ.get("ANTHROPIC_API_KEY")
+#      api_key=user_claude_api_key,
+#    )
+#else:
+#    st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
 if user_claude_api_key:
-    completion = anthropic.completions.create(
-        model=MODEL,
+    stream = anthropic.completions.create(
+        prompt=f"{HUMAN_PROMPT} Your prompt here{AI_PROMPT}",
         max_tokens_to_sample=300,
-        prompt=f"{HUMAN_PROMPT} What is Wardley Mapping?{AI_PROMPT}",
+        model="claude-2",
+        stream=True,
     )
-    st.write(completion.completion)
+    for completion in stream:
+        print(completion.completion, end="", flush=True)
