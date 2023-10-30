@@ -24,6 +24,9 @@ user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", pla
 if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
 
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
+    
 if user_claude_api_key:
     # If the user has provided an API key, use it
     # Swap out Anthropic Claude for promptlayer
