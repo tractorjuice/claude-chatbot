@@ -19,7 +19,7 @@ st.sidebar.markdown("Using Anthropic Claude API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
-user_clause_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
+user_claude_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
 if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
