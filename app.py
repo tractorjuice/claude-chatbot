@@ -57,5 +57,9 @@ if user_claude_api_key:
             ):
                 full_response += response.choices[0].delta.get("content", "")
                 message_placeholder.markdown(full_response + "▌")
+
+            for completion in stream:
+                print(completion.completion, end="", flush=True)
+
             message_placeholder.markdown(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
