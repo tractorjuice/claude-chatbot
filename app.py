@@ -36,12 +36,13 @@ if user_claude_api_key:
 else:
     st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
-completion = anthropic.completions.create(
-    model=MODEL,
-    max_tokens_to_sample=300,
-    prompt=f"{HUMAN_PROMPT} What is Wardley Mapping?{AI_PROMPT}",
-)
-print(completion.completion)
+if user_claude_api_key:
+    completion = anthropic.completions.create(
+        model=MODEL,
+        max_tokens_to_sample=300,
+        prompt=f"{HUMAN_PROMPT} What is Wardley Mapping?{AI_PROMPT}",
+    )
+    print(completion.completion)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
