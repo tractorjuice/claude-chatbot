@@ -46,7 +46,7 @@ if user_claude_api_key:
         with st.chat_message("user"):
             st.markdown(prompt)
             response = anthropic.completions.create(
-                prompt=prompt,
+                prompt=aprompt,
                 stop_sequences=[anthropic.HUMAN_PROMPT],
                 model="claude-v1", #"claude-2" for Claude 2 model
                 max_tokens_to_sample=100,
