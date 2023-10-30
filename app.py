@@ -10,8 +10,8 @@ MODEL = "claude-2"
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
     
-st.set_page_config(page_title="Learn Wardley Mapping Bot")
-st.sidebar.title("Learn Wardley Mapping")
+st.set_page_config(page_title="Anthropic - Learn Wardley Mapping Bot")
+st.sidebar.title("Anthropic - Learn Wardley Mapping")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.0.0")
