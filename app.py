@@ -4,6 +4,7 @@ import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
+#MODEL = "claude-1"
 MODEL = "claude-2"
 #MODEL = "claude-v1-100k"
 
