@@ -46,20 +46,15 @@ if user_claude_api_key:
         with st.chat_message("user"):
             st.markdown(prompt)
         
-        with st.chat_message("assistant"):
-            message_placeholder = st.empty()
-            full_response = ""
-            for response in anthropic.completions.create(
-                aprompt,
-                #max_tokens_to_sample=300,
-                model=MODEL,
-                stream=True,
-            ):
-                full_response += response.choices[0].delta.get("content", "")
-                message_placeholder.markdown(full_response + "▌")
-
-            for completion in stream:
-                print(completion.completion, end="", flush=True)
+            client = anthropic.Client(api_key=user_claude_api_key)
+            response = client.completions.create(
+                prompt=prompt,
+                stop_sequences=[anthropic.HUMAN_PROMPT],
+                model="claude-v1", #"claude-2" for Claude 2 model
+                max_tokens_to_sample=100,
+            )
+            st.write("### Answer")
+            st.write(response.completion)
 
             message_placeholder.markdown(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
