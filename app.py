@@ -64,3 +64,5 @@ if user_claude_api_key:
             st.write("### Answer")
             st.write(response.completion)
         st.session_state.messages.append({"role": "assistant", "content": response.completion})
+        st.json(response.completion)
+        
