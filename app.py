@@ -53,6 +53,4 @@ if user_claude_api_key:
             )
             st.write("### Answer")
             st.write(response.completion)
-
-            message_placeholder.markdown(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.messages.append({"role": "assistant", "content": response.completion})
