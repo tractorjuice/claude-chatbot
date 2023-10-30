@@ -45,9 +45,7 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
-        
-            client = anthropic.Client(api_key=user_claude_api_key)
-            response = client.completions.create(
+            response = anthropic.completions.create(
                 prompt=prompt,
                 stop_sequences=[anthropic.HUMAN_PROMPT],
                 model="claude-v1", #"claude-2" for Claude 2 model
