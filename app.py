@@ -44,4 +44,4 @@ if user_claude_api_key:
         stream=True,
     )
     for completion in stream:
-        print(completion.completion, end="", flush=True)
+        st.write(completion.completion, end="", flush=True)
