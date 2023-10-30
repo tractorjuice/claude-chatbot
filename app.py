@@ -38,7 +38,7 @@ else:
 
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-        prompt = (f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT})
+        prompt = f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT}"
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
