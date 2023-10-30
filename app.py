@@ -37,11 +37,23 @@ else:
     st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
 if user_claude_api_key:
-    stream = anthropic.completions.create(
-        prompt=f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT}",
-        max_tokens_to_sample=300,
-        model="claude-2",
-        stream=True,
-    )
-    for completion in stream:
-        st.write(completion.completion, end="", flush=True)
+    if prompt := st.chat_input("How can I help with Wardley Mapping?"):
+        prompt = (f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT})
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            stream = ""
+            stream = anthropic.completions.create(
+                prompt,
+                max_tokens_to_sample=300,
+                model="claude-2",
+                stream=True,
+            )
+            for completion in stream:
+                st.write(completion.completion, end="", flush=True)
+                stream += response.choices[0].delta.get("content", "")
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
