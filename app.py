@@ -42,4 +42,4 @@ if user_claude_api_key:
         max_tokens_to_sample=300,
         prompt=f"{HUMAN_PROMPT} What is Wardley Mapping?{AI_PROMPT}",
     )
-    print(completion.completion)
+    st.write(completion.completion)
