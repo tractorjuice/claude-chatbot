@@ -24,17 +24,17 @@ user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", pla
 if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
 
-#if user_claude_api_key:
-#    # If the user has provided an API key, use it
-#    # Swap out Anthropic Claude for promptlayer
-#    promptlayer.api_key = st.secrets["PROMPTLAYER"]
-#    #client = promptlayer.anthropic_client
-#    anthropic = Anthropic(
-#      # defaults to os.environ.get("ANTHROPIC_API_KEY")
-#      api_key=user_claude_api_key,
-#    )
-#else:
-#    st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
+if user_claude_api_key:
+    # If the user has provided an API key, use it
+    # Swap out Anthropic Claude for promptlayer
+    promptlayer.api_key = st.secrets["PROMPTLAYER"]
+    #client = promptlayer.anthropic_client
+    anthropic = Anthropic(
+      # defaults to os.environ.get("ANTHROPIC_API_KEY")
+      api_key=user_claude_api_key,
+    )
+else:
+    st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
 if user_claude_api_key:
     stream = anthropic.completions.create(
