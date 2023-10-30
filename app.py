@@ -41,7 +41,7 @@ else:
 
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-        prompt = f"{HUMAN_PROMPT} What is Wardley Mapping{AI_PROMPT}"
+        aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -50,7 +50,7 @@ if user_claude_api_key:
             message_placeholder = st.empty()
             full_response = ""
             for response in anthropic.completions.create(
-                prompt,
+                aprompt,
                 #max_tokens_to_sample=300,
                 model=MODEL,
                 stream=True,
