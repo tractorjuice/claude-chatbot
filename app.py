@@ -15,9 +15,7 @@ Here is the user's question about Wardley Mapping:
 <question>
 {QUESTION}
 </question>
-
-
-Assistant:
+\n\nAssistant:
 """
 
 #MODEL = "claude-1"
