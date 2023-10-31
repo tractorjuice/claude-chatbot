@@ -75,4 +75,4 @@ if user_claude_api_key:
             st.error("Another non-200-range status code was received")
             st.error(e.status_code)
             st.error(e.response)
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
