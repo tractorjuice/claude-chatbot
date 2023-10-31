@@ -18,7 +18,7 @@ Here is the user's question about Wardley Mapping:
 
 Please respond to the user’s questions within <response></response> tags.
 
-Assistant: [MapMentor] <response>
+Assistant: <response>
 """
 
 #MODEL = "claude-1"
