@@ -66,7 +66,7 @@ if user_claude_api_key:
                 prompt=aprompt,
                 #stop_sequences=[anthropic.HUMAN_PROMPT],
                 model=MODEL,
-                max_tokens_to_sample=500,
+                max_tokens_to_sample=1000,
                 stream=True,
                 pl_tags=["anthropic-chatbot", st.session_state.session_id]
             ):
