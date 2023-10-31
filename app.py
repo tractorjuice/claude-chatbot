@@ -13,7 +13,7 @@ Here are some important rules for the interaction:
 
 Here is the user's question about Wardley Mapping:
 <question>
-{{QUESTION}}
+{QUESTION}
 </question>
 
 Please respond to the user’s questions within <response></response> tags.
