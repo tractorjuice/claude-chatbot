@@ -60,7 +60,7 @@ if user_claude_api_key:
                     stream=True,
                     pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id ]
                 )
-                for completion in stream:
+                for completion in response:
                     print(completion.completion, end="", flush=True)
             except anthropic.APIConnectionError as e:
                 st.error("The server could not be reached")
