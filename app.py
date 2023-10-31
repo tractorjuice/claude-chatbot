@@ -16,9 +16,8 @@ Here is the user's question about Wardley Mapping:
 {QUESTION}
 </question>
 
-Please respond to the user’s questions within <response></response> tags.
 
-Assistant: <response>
+Assistant:
 """
 
 #MODEL = "claude-1"
