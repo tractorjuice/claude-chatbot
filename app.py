@@ -1,8 +1,10 @@
 #Importing required packages
 import streamlit as st
 import promptlayer
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+from anthropic import Anthropic, HUMAN_PROMPT
 import uuid
+
+AI_PROMPT = "\n\nAssistant: You are a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping"
 
 #MODEL = "claude-1"
 MODEL = "claude-2"
