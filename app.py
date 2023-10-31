@@ -11,7 +11,7 @@ Here are some important rules for the interaction:
 - If you are unsure how to respond, respond with another question.
 - Always use a liberationism pedagogy training approach.
 
-Here is the user's question:
+Here is the user's question about Wardley Mapping:
 <question>
 {{QUESTION}}
 </question>
