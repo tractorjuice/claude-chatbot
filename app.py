@@ -66,7 +66,6 @@ for message in st.session_state.messages:
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
         aprompt = INIT_PROMPT.format(QUESTION = prompt)
-        st.write(prompt)
         st.session_state.prompts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
