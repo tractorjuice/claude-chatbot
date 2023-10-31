@@ -61,7 +61,7 @@ if user_claude_api_key:
                 model=MODEL,
                 max_tokens_to_sample=500,
                 stream=True,
-                pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id]
+                pl_tags=["anthropic-chatbot", st.session_state.session_id]
             ):
                 full_response += response.completion
                 message_placeholder.markdown(full_response + "▌")
