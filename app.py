@@ -50,18 +50,21 @@ if user_claude_api_key:
         aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
+            message_placeholder = st.empty()
             st.markdown(prompt)
+            full_response = ""
             try:
-                response = client.completions.create(
+                for response = client.completions.create(
                     prompt=aprompt,
                     #stop_sequences=[anthropic.HUMAN_PROMPT],
                     model=MODEL,
                     max_tokens_to_sample=500,
                     stream=True,
                     pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id ]
-                )
-                for completion in response:
-                    print(completion.completion, end="", flush=True)
+                ):
+                    full_response += response.choices[0].delta.get("content", "")
+                    message_placeholder.markdown(full_response + "▌")
+                message_placeholder.markdown(full_response)
             except anthropic.APIConnectionError as e:
                 st.error("The server could not be reached")
                 print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -73,4 +76,4 @@ if user_claude_api_key:
                 st.error(e.response)
         #with st.chat_message("assistant"):
         #    st.write(response.completion)
-        #st.session_state.messages.append({"role": "assistant", "content": response.completion})
+        #st.session_state.messages.append({"role": "assistant", "content": full_response})
