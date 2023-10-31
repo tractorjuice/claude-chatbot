@@ -30,10 +30,10 @@ if "messages" not in st.session_state:
     
 if user_claude_api_key:
     # If the user has provided an API key, use it
-    # Swap out Anthropic Claude for promptlayer
+    # Swap out Anthropic for promptlayer
     promptlayer.api_key = st.secrets["PROMPTLAYER"]
-    #client = promptlayer.anthropic_client
-    anthropic = Anthropic(
+    anthropic = promptlayer.anthropic
+    client=anthropic.Anthropic(
       # defaults to os.environ.get("ANTHROPIC_API_KEY")
       api_key=user_claude_api_key,
     )
@@ -52,7 +52,7 @@ if user_claude_api_key:
         with st.chat_message("user"):
             st.markdown(prompt)
             try:
-                response = anthropic.completions.create(
+                response = client.completions.create(
                     prompt=aprompt,
                     stop_sequences=[anthropic.HUMAN_PROMPT],
                     model=MODEL,
