@@ -22,6 +22,8 @@ Here is the user's question about Wardley Mapping:
 MODEL = "claude-2"
 #MODEL = "claude-v1-100k"
 
+new_prompt = ""
+
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
     
