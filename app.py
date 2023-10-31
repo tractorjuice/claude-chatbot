@@ -50,8 +50,8 @@ if user_claude_api_key:
         aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
-            message_placeholder = st.empty()
             st.markdown(prompt)
+            message_placeholder = st.empty()
             full_response = ""
             try:
                 for response in client.completions.create(
