@@ -54,7 +54,7 @@ if user_claude_api_key:
             st.markdown(prompt)
             full_response = ""
             try:
-                for response = client.completions.create(
+                for response client.completions.create(
                     prompt=aprompt,
                     #stop_sequences=[anthropic.HUMAN_PROMPT],
                     model=MODEL,
