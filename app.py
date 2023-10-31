@@ -4,7 +4,6 @@ import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
-
 SYSTEM_PROMPT = """
 \n You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
 Here are some important rules for the interaction:
@@ -20,14 +19,7 @@ Here is the user's question:
 Please respond to the user’s questions within <response></response> tags.
 
 Assistant: [MapMentor] <response>
-
 """
-
-
-
-
-
-
 
 #MODEL = "claude-1"
 MODEL = "claude-2"
