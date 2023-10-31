@@ -68,6 +68,7 @@ if user_claude_api_key:
         aprompt = INIT_PROMPT.format(QUESTION = prompt)
         st.session_state.prompts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.sidebar.write(st.session_state.messages)
         with st.chat_message("user"):
             st.markdown(prompt)
         with st.chat_message("assistant"):
