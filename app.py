@@ -57,6 +57,7 @@ if user_claude_api_key:
                     stop_sequences=[anthropic.HUMAN_PROMPT],
                     model=MODEL,
                     max_tokens_to_sample=500,
+                    stream=True,
                     pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id ]
                 )
             except anthropic.APIConnectionError as e:
