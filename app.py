@@ -5,7 +5,7 @@ from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
 SYSTEM_PROMPT = """
-\n You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
+\n\n Human:You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
 Here are some important rules for the interaction:
 - Always stay in character, as MapMentor a Wardley Mapping trainer.  
 - If you are unsure how to respond, respond with another question.
@@ -68,7 +68,8 @@ for message in st.session_state.messages:
             
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-        aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT} {SYSTEM_PROMPT}"
+        # "My name is {fname}, I'm {age}".format(fname = "John", age = 36)
+        aprompt = f"{SYSTEM_PROMPT}.format(QUESTION = prompt")
         st.session_state.prompts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
