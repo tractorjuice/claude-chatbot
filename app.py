@@ -21,6 +21,7 @@ st.sidebar.markdown("Current Version: 0.0.0")
 st.sidebar.markdown("Using claude-2 API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
+
 # Check if the user has provided an API key, otherwise default to the secret
 user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
 
@@ -53,7 +54,7 @@ for message in st.session_state.messages:
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
         aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
-        st.session_state.prommts.append(aprompt)
+        st.session_state.prompts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -82,4 +83,4 @@ if user_claude_api_key:
             st.error(e.status_code)
             st.error(e.response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        st.session_state.prommts.append(full_response)
+        st.session_state.prompts.append(full_response)
