@@ -1,11 +1,11 @@
 #Importing required packages
 import streamlit as st
 import promptlayer
-from anthropic import Anthropic, HUMAN_PROMPT
+from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
-AI_PROMPT = "\n\nAssistant: You are a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping"
 
+SYSTEM_PROMPT = "\n You are a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping"
 #MODEL = "claude-1"
 MODEL = "claude-2"
 #MODEL = "claude-v1-100k"
@@ -53,7 +53,7 @@ for message in st.session_state.messages:
             
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-        aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
+        aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT} {SYSTEM_PROMPT}"
         st.session_state.prompts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
