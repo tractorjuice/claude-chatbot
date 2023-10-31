@@ -16,7 +16,7 @@ st.sidebar.title("Anthropic - Learn Wardley Mapping")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.0.0")
-st.sidebar.markdown("Using Anthropic Claude API")
+st.sidebar.markdown("Using claude-v1-100k API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
@@ -40,6 +40,11 @@ if user_claude_api_key:
 else:
     st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
+for message in st.session_state.messages:
+    if message["role"] in ["user", "assistant"]:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+            
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
         aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
