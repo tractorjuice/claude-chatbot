@@ -54,13 +54,13 @@ if user_claude_api_key:
             st.markdown(prompt)
             full_response = ""
             try:
-                for response client.completions.create(
+                for response in client.completions.create(
                     prompt=aprompt,
                     #stop_sequences=[anthropic.HUMAN_PROMPT],
                     model=MODEL,
                     max_tokens_to_sample=500,
                     stream=True,
-                    pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id ]
+                    pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id]
                 ):
                     full_response += response.choices[0].delta.get("content", "")
                     message_placeholder.markdown(full_response + "▌")
