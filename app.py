@@ -51,29 +51,30 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
+        with st.chat_message("assistant")
             message_placeholder = st.empty()
-            full_response = ""
-            try:
-                for response in client.completions.create(
-                    prompt=aprompt,
-                    #stop_sequences=[anthropic.HUMAN_PROMPT],
-                    model=MODEL,
-                    max_tokens_to_sample=500,
-                    stream=True,
-                    pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id]
-                ):
-                    full_response += response.completion
-                    message_placeholder.markdown(full_response + "▌")
-                message_placeholder.markdown(full_response)
-            except anthropic.APIConnectionError as e:
-                st.error("The server could not be reached")
-                print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-            except anthropic.RateLimitError as e:
-                st.error("A 429 status code was received; we should back off a bit.")
-            except anthropic.APIStatusError as e:
-                st.error("Another non-200-range status code was received")
-                st.error(e.status_code)
-                st.error(e.response)
-        #with st.chat_message("assistant"):
-        #    st.write(response.completion)
-        #st.session_state.messages.append({"role": "assistant", "content": full_response})
+        full_response = ""
+        try:
+            for response in client.completions.create(
+                prompt=aprompt,
+                #stop_sequences=[anthropic.HUMAN_PROMPT],
+                model=MODEL,
+                max_tokens_to_sample=500,
+                stream=True,
+                pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id]
+            ):
+                full_response += response.completion
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
+        except anthropic.APIConnectionError as e:
+            st.error("The server could not be reached")
+            print(e.__cause__)  # an underlying Exception, likely raised within httpx.
+        except anthropic.RateLimitError as e:
+            st.error("A 429 status code was received; we should back off a bit.")
+        except anthropic.APIStatusError as e:
+            st.error("Another non-200-range status code was received")
+            st.error(e.status_code)
+            st.error(e.response)
+    #with st.chat_message("assistant"):
+    #    st.write(response.completion)
+    #st.session_state.messages.append({"role": "assistant", "content": full_response})
