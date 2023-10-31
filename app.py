@@ -27,6 +27,9 @@ if "claude_model" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
+
+if "prompts" not in st.session_state:
+    st.session_state["prompts"] = []
     
 if user_claude_api_key:
     # If the user has provided an API key, use it
@@ -48,6 +51,7 @@ for message in st.session_state.messages:
 if user_claude_api_key:
     if prompt := st.chat_input("How can I help with Wardley Mapping?"):
         aprompt = f"{HUMAN_PROMPT} {prompt} {AI_PROMPT}"
+        st.session_state.prommts.append(aprompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -76,3 +80,4 @@ if user_claude_api_key:
             st.error(e.status_code)
             st.error(e.response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.prommts.append(full_response)
