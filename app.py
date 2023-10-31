@@ -63,7 +63,7 @@ else:
 for message in st.session_state.messages:
     if message["role"] in ["user", "assistant"]:
         with st.chat_message(message["role"]):
-            new_prompt.append = message["content"]
+            new_prompt.append(message["content"])
             st.markdown(message["content"])
     st.sidebar.write("JSON")
     st.sidebar.write(new_prompt)
