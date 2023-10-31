@@ -62,7 +62,7 @@ if user_claude_api_key:
                     stream=True,
                     pl_tags=["learnwardleymapping-anthropic", st.session_state.session_id]
                 ):
-                    full_response += response
+                    full_response += completion.completion
                     message_placeholder.markdown(full_response + "▌")
                 message_placeholder.markdown(full_response)
             except anthropic.APIConnectionError as e:
