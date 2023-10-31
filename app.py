@@ -65,5 +65,3 @@ if user_claude_api_key:
         with st.chat_message("assistant"):
             st.write(response.completion)
         st.session_state.messages.append({"role": "assistant", "content": response.completion})
-        st.code(response.completion)
-        
