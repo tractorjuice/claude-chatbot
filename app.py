@@ -5,7 +5,7 @@ from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
 INIT_PROMPT = """
-\n\n Human: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
+\n\nHuman: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
 Here are some important rules for the interaction:
 - Always stay in character, as MapMentor a Wardley Mapping trainer.  
 - If you are unsure how to respond, respond with another question.
@@ -15,7 +15,7 @@ Here is the user's question about Wardley Mapping:
 <question>
 {QUESTION}
 </question>
-\n\nAssistant:
+\n\nAssistant: [MapMentor] <response>
 """
 
 #MODEL = "claude-1"
@@ -77,7 +77,7 @@ if user_claude_api_key:
         try:
             for response in client.completions.create(
                 prompt=aprompt,
-                #stop_sequences=[anthropic.HUMAN_PROMPT],
+                stop_sequences=["</response>"],
                 model=MODEL,
                 max_tokens_to_sample=1000,
                 stream=True,
