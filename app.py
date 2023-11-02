@@ -92,9 +92,10 @@ if "session_id" not in st.session_state:
     
 st.set_page_config(page_title="Anthropic - ChatBot")
 st.sidebar.title("Anthropic - ChatBot")
+st.sidebar.title("Wardley Mapping Mentor")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.0.0")
+st.sidebar.markdown("Current Version: 0.0.2")
 st.sidebar.markdown("Using claude-2 API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
