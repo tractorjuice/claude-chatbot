@@ -117,7 +117,8 @@ if user_claude_api_key:
         except anthropic.APIStatusError as e:
             st.error("Another non-200-range status code was received")
             st.error(e.status_code)
-            st.error(e.response)       
+            st.error(e.response)      
+        st.write(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         print(count_used_tokens(prompt, full_response))
