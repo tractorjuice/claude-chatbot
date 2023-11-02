@@ -133,7 +133,7 @@ if user_claude_api_key:
     if user_input := st.chat_input("How can I help with Wardley Mapping?"):
         prompt = REG_PROMPT.format(QUESTION = user_input)
         st.session_state.all_prompts += prompt
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append({"role": "user", "content": user_input})
         with st.chat_message("user"):
             st.markdown(user_input)
         with st.chat_message("assistant"):
