@@ -13,7 +13,7 @@ Here are some important rules for the interaction:
 """
 
 TRAINING_PROMPT = """
-Here is an outline for a training course that covers the key principles of Wardley Mapping:
+\n\nAssistant: Here is an outline for a training course that covers the key principles of Wardley Mapping:
 
 Module 1 - Introduction to Wardley Mapping
 
