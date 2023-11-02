@@ -47,6 +47,22 @@ if "messages" not in st.session_state:
 
 if "prompts" not in st.session_state:
     st.session_state["prompts"] = []
+
+def count_used_tokens(prompt, completion):
+    prompt_token_count = anthropic.count_tokens(prompt)
+    completion_token_count = anthropic.count_tokens(completion)
+
+    prompt_cost = prompt_token_count * PRICE_PROMPT
+    completion_cost = completion_token_count * PRICE_COMPLETION
+
+    total_cost = prompt_cost + completion_cost
+
+    return (
+        "🟡 Used tokens this round: "
+        + f"Prompt: {prompt_token_count} tokens, "
+        + f"Completion: {completion_token_count} tokens - "
+        + f"{format(total_cost, '.5f')} USD)"
+    )
     
 if user_claude_api_key:
     # If the user has provided an API key, use it
@@ -69,11 +85,11 @@ for message in st.session_state.messages:
     st.sidebar.write(new_prompt)
             
 if user_claude_api_key:
-    if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-        aprompt = INIT_PROMPT.format(QUESTION = prompt)
-        st.session_state.prompts.append(aprompt)
+    if user_input := st.chat_input("How can I help with Wardley Mapping?"):
+        prompt = INIT_PROMPT.format(QUESTION = user_input)
+        st.session_state.context += prompt
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.sidebar.write(st.session_state.messages)
+        st.sidebar.write(st.session_state.context)
         with st.chat_message("user"):
             st.markdown(prompt)
         with st.chat_message("assistant"):
@@ -81,7 +97,7 @@ if user_claude_api_key:
         full_response = ""
         try:
             for response in client.completions.create(
-                prompt=aprompt,
+                prompt=st.session_state.context,
                 stop_sequences=["</response>"],
                 model=MODEL,
                 max_tokens_to_sample=1000,
@@ -99,6 +115,7 @@ if user_claude_api_key:
         except anthropic.APIStatusError as e:
             st.error("Another non-200-range status code was received")
             st.error(e.status_code)
-            st.error(e.response)
+            st.error(e.response)       
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        st.session_state.prompts.append(full_response)
+        st.session_state.context += full_response
+        print(count_used_tokens(prompt, completion))
