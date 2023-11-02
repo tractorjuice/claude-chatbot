@@ -119,5 +119,5 @@ if user_claude_api_key:
             st.error(e.status_code)
             st.error(e.response)       
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        st.session_state.all_prompts += full_response
+        st.session_state.all_prompts += "".join(full_response.values())
         print(count_used_tokens(prompt, full_response))
