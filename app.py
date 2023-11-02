@@ -134,7 +134,6 @@ if user_claude_api_key:
         prompt = REG_PROMPT.format(QUESTION = user_input)
         st.session_state.all_prompts += prompt
         st.session_state.messages.append({"role": "user", "content": prompt})
-        #st.sidebar.write(st.session_state.all_prompts)
         with st.chat_message("user"):
             st.markdown(user_input)
         with st.chat_message("assistant"):
