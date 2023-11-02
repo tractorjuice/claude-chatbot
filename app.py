@@ -165,5 +165,5 @@ if user_claude_api_key:
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
         with total_tokens:
             st.write("Total:" + str(prompt_token_count))
-            st..write("Completiioon: " + str(completion_token_count))
+            st.write("Completiioon: " + str(completion_token_count))
             st.write("Total Cost: " + str(total_cost))
