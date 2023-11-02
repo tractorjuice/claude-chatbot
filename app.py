@@ -64,11 +64,10 @@ def count_used_tokens(prompt, completion):
     completion_cost = completion_token_count * PRICE_COMPLETION
 
     total_cost = prompt_cost + completion_cost
-    nl = '\n'
     return (
-        "🟡 Used tokens this round:\n"
-        + f"Prompt: {prompt_token_count} tokens{nl}"
-        + f"Completion: {completion_token_count} tokens{nl}"
+        "🟡 Used tokens this round: "
+        + f"Prompt: {prompt_token_count} tokens. "
+        + f"Completion: {completion_token_count} tokens. "
         + f"{format(total_cost, '.5f')} USD)"
     )
     
