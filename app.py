@@ -95,7 +95,7 @@ if user_claude_api_key:
         full_response = ""
         try:
             for response in client.completions.create(
-                prompt=st.session_state.context,
+                prompt=st.session_state.all_prompts,
                 stop_sequences=["</response>"],
                 model=MODEL,
                 max_tokens_to_sample=1000,
