@@ -44,6 +44,7 @@ st.sidebar.divider()
 user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
 
 st.sidebar.divider()
+st.sidebar.markdown("### Tokens")
 total_tokens = st.sidebar.empty()
 st.sidebar.divider()
 
