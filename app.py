@@ -86,10 +86,8 @@ st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
 
-st.sidebar.divider()
 st.sidebar.markdown("Tokens")
 total_tokens = st.sidebar.empty()
-st.sidebar.divider()
 
 if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
@@ -165,4 +163,4 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
-        total_tokens.markdown("Total:" + str(prompt_token_count) + "  \nCompletion: " + str(completion_token_count) + "  \nTotal Cost: " + str(total_cost))
+        total_tokens.markdown("Total: " + str(prompt_token_count) + "  \nCompletion: " + str(completion_token_count) + "  \nTotal Cost: " + str(total_cost))
