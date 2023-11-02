@@ -53,6 +53,10 @@ Please let me know if you would like me to expand on any part of this high-level
 I'm happy to provide more details on how to effectively teach this methodology.
 """
 
+INTRO_PROMPT = """
+Let's get started, I'll walk you through the course:
+"""
+
 REG_PROMPT = """
 \n\nHuman: Here is the user's question about Wardley Mapping:
 <question>
@@ -94,6 +98,7 @@ if "claude_model" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
+    st.session_state.messages.append({"role": "user", "content": INTRO_PROMPT})
 
 if "all_prompts" not in st.session_state:
     st.session_state["all_prompts"] = INIT_PROMPT + TRAINING_PROMPT
