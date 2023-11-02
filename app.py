@@ -93,7 +93,7 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.sidebar.write(st.session_state.all_prompts)
         with st.chat_message("user"):
-            st.markdown(prompt)
+            st.markdown(user_input)
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
         full_response = ""
