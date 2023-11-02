@@ -4,6 +4,14 @@ import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
+INIT_PROMPT = """
+\n\nHuman: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
+Here are some important rules for the interaction:
+- Always stay in character, as MapMentor a Wardley Mapping trainer.  
+- If you are unsure how to respond, respond with another question.
+- Always use a liberationism pedagogy training approach.
+"""
+
 TRAINING_PROMPT = """
 Here is an outline for a training course that covers the key principles of Wardley Mapping:
 
@@ -42,14 +50,6 @@ Promoting adoption and managing skeptics
 For each module, we would provide concepts, examples, hands-on exercises, and practice activities to build skills.
 Please let me know if you would like me to expand on any part of this high-level curriculum outline for a Wardley Mapping training course.
 I'm happy to provide more details on how to effectively teach this methodology.
-"""
-
-INIT_PROMPT = """
-\n\nHuman: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
-Here are some important rules for the interaction:
-- Always stay in character, as MapMentor a Wardley Mapping trainer.  
-- If you are unsure how to respond, respond with another question.
-- Always use a liberationism pedagogy training approach.
 """
 
 REG_PROMPT = """
@@ -144,7 +144,7 @@ if user_claude_api_key:
                 prompt=st.session_state.all_prompts,
                 stop_sequences=["</response>"],
                 model=MODEL,
-                max_tokens_to_sample=1000,
+                max_tokens_to_sample=500,
                 stream=True,
                 pl_tags=["anthropic-chatbot", st.session_state.session_id]
             ):
