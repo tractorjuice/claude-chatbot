@@ -45,8 +45,8 @@ if "claude_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-if "prompts" not in st.session_state:
-    st.session_state["prompts"] = []
+if "all_prompts" not in st.session_state:
+    st.session_state["all_prompts"] = []
 
 def count_used_tokens(prompt, completion):
     prompt_token_count = anthropic.count_tokens(prompt)
@@ -81,15 +81,13 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             new_prompt.append(message["content"])
             st.markdown(message["content"])
-    st.sidebar.write("JSON")
-    st.sidebar.write(new_prompt)
             
 if user_claude_api_key:
     if user_input := st.chat_input("How can I help with Wardley Mapping?"):
         prompt = INIT_PROMPT.format(QUESTION = user_input)
-        st.session_state.context += prompt
+        st.session_state.all_prompts += prompt
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.sidebar.write(st.session_state.context)
+        st.sidebar.write(st.session_state.all_prompts)
         with st.chat_message("user"):
             st.markdown(prompt)
         with st.chat_message("assistant"):
@@ -117,5 +115,5 @@ if user_claude_api_key:
             st.error(e.status_code)
             st.error(e.response)       
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        st.session_state.context += full_response
+        st.session_state.all_prompts += full_response
         print(count_used_tokens(prompt, completion))
