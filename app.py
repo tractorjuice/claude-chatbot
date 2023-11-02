@@ -163,6 +163,4 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
-        total_tokens.write("Total:" + str(prompt_token_count))
-        st.sidebar.write("Completiioon: " + str(completion_token_count))
-        st.sidebar.write("Total Cost: " + str(total_cost))
+        total_tokens.write("Total:" + str(prompt_token_count) + "\nCompletion: " + str(completion_token_count) + "\nTotal Cost: " + str(total_cost))
