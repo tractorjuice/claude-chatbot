@@ -67,7 +67,7 @@ def count_used_tokens(prompt, completion):
 
     return (
         "🟡 Used tokens this round:\n"
-        + f"Prompt: {prompt_token_count} {"\n".join(tokens)}"
+        + f"Prompt: {prompt_token_count} tokens{"\n"}"
         + f"Completion: {completion_token_count} tokens\n"
         + f"{format(total_cost, '.5f')} USD)"
     )
