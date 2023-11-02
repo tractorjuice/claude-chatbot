@@ -60,10 +60,8 @@ if "all_prompts" not in st.session_state:
 def count_used_tokens(prompt, completion):
     prompt_token_count = client.count_tokens(prompt)
     completion_token_count = client.count_tokens(completion)
-
     prompt_cost = prompt_token_count * PRICE_PROMPT
     completion_cost = completion_token_count * PRICE_COMPLETION
-
     total_cost = prompt_cost + completion_cost
     return (
         prompt_token_count,
@@ -94,7 +92,7 @@ if user_claude_api_key:
         prompt = INIT_PROMPT.format(QUESTION = user_input)
         st.session_state.all_prompts += prompt
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.sidebar.write(st.session_state.all_prompts)
+        #st.sidebar.write(st.session_state.all_prompts)
         with st.chat_message("user"):
             st.markdown(user_input)
         with st.chat_message("assistant"):
@@ -124,6 +122,6 @@ if user_claude_api_key:
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
-        total_tokens.write(prompt_token_count)
-        total_tokens.write(completion_token_count)
-        total_tokens.write(total_cost)
+        total_tokens.write("Total:" + prompt_token_count)
+        total_tokens.write("Completiioon: " + completion_token_count)
+        total_tokens.write("Total Cost: " + total_cost)
