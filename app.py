@@ -54,7 +54,8 @@ I'm happy to provide more details on how to effectively teach this methodology.
 """
 
 INTRO_PROMPT = """
-The course is designed as an interactive learning experience to build your skills in Wardley Mapping from the ground up. We will cover the key principles, components, and steps for creating powerful maps.
+Hello, I'm MapMentor
+This course is designed as an interactive learning experience to build your skills in Wardley Mapping from the ground up. We will cover the key principles, components, and steps for creating powerful maps.
 
 The course is organized into 6 modules:
 Module 1 provides an introduction to the purpose, benefits, and foundational concepts of mapping. We discuss how it helps with situational awareness and strategic planning.
