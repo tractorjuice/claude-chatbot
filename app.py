@@ -107,7 +107,8 @@ if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = {"role": "assistant", "content": INTRO_PROMPT}
+    st.session_state["messages"] = []
+    st.session_state.messages.append({"role": "user", "content": INTRO_PROMPT})
 
 if "all_prompts" not in st.session_state:
     st.session_state["all_prompts"] = INIT_PROMPT + TRAINING_PROMPT
