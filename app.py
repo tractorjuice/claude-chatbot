@@ -50,7 +50,7 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 if "all_prompts" not in st.session_state:
-    st.session_state["all_prompts"] = []
+    st.session_state["all_prompts"] = ""
 
 def count_used_tokens(prompt, completion):
     prompt_token_count = client.count_tokens(prompt)
