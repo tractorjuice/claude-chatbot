@@ -54,7 +54,17 @@ I'm happy to provide more details on how to effectively teach this methodology.
 """
 
 INTRO_PROMPT = """
-Let's get started, I'll walk you through the course:
+The course is designed as an interactive learning experience to build your skills in Wardley Mapping from the ground up. We will cover the key principles, components, and steps for creating powerful maps.
+
+The course is organized into 6 modules:
+Module 1 provides an introduction to the purpose, benefits, and foundational concepts of mapping. We discuss how it helps with situational awareness and strategic planning.
+Module 2 focuses on the structure of Wardley Maps - the components like activities, evolution axis, dependencies. You'll learn how to visualize your value chain.
+Module 3 is all about developing maps hands-on. We'll practice gathering insights, positioning elements, adding annotations to create meaningful maps.
+Module 4 shifts to using completed maps for strategic analysis and decision making. You'll apply doctrine to interpret maps and generate insights.
+Module 5 covers more advanced concepts like mapping ecosystems, organizational culture, and handling uncertainty.
+Finally Module 6 is on facilitating mapping workshops and driving adoption.
+Each module includes concepts, examples, exercises, and practice activities to build your skills. You'll have opportunities to create maps, iterate on them, and apply them to scenario-based challenges.
+I'm looking forward to exploring all aspects of Wardley Mapping with you in this course! Please let me know if you would like me to elaborate on any part of the curriculum.
 """
 
 REG_PROMPT = """
@@ -97,8 +107,7 @@ if "claude_model" not in st.session_state:
     st.session_state["claude_model"] = MODEL
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-    st.session_state.messages.append({"role": "user", "content": INTRO_PROMPT})
+    st.session_state["messages"] = {"role": "assistant", "content": INTRO_PROMPT}
 
 if "all_prompts" not in st.session_state:
     st.session_state["all_prompts"] = INIT_PROMPT + TRAINING_PROMPT
