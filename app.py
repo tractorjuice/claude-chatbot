@@ -49,8 +49,8 @@ if "all_prompts" not in st.session_state:
     st.session_state["all_prompts"] = []
 
 def count_used_tokens(prompt, completion):
-    prompt_token_count = anthropic.count_tokens(prompt)
-    completion_token_count = anthropic.count_tokens(completion)
+    prompt_token_count = client.count_tokens(prompt)
+    completion_token_count = client.count_tokens(completion)
 
     prompt_cost = prompt_token_count * PRICE_PROMPT
     completion_cost = completion_token_count * PRICE_COMPLETION
