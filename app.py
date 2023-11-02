@@ -3,6 +3,7 @@ import streamlit as st
 import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
+import math
 
 INIT_PROMPT = """
 \n\nHuman: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
@@ -105,6 +106,7 @@ def count_used_tokens(prompt, completion):
     prompt_cost = prompt_token_count * PRICE_PROMPT
     completion_cost = completion_token_count * PRICE_COMPLETION
     total_cost = prompt_cost + completion_cost
+    total_cost = math.ceil(total_cost * 100) / 100
     return (
         prompt_token_count,
         completion_token_count,
