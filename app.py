@@ -18,6 +18,10 @@ Here is the user's question about Wardley Mapping:
 \n\nAssistant: [MapMentor] <response>
 """
 
+# Anthropic Claude pricing: https://cdn2.assets-servd.host/anthropic-website/production/images/model_pricing_may2023.pdf
+PRICE_PROMPT = 1.102E-5
+PRICE_COMPLETION = 3.268E-5
+
 #MODEL = "claude-1"
 MODEL = "claude-2"
 #MODEL = "claude-v1-100k"
