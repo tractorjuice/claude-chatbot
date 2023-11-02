@@ -66,10 +66,9 @@ def count_used_tokens(prompt, completion):
 
     total_cost = prompt_cost + completion_cost
     return (
-        "🟡 Used tokens this round: "
-        + f"Prompt: {prompt_token_count} tokens. "
-        + f"Completion: {completion_token_count} tokens. "
-        + f"{format(total_cost, '.5f')} USD)"
+        prompt_token_count,
+        completion_token_count,
+        total_cost
     )
     
 if user_claude_api_key:
@@ -123,5 +122,8 @@ if user_claude_api_key:
             st.error(e.status_code)
             st.error(e.response)      
         st.session_state.messages.append({"role": "assistant", "content": full_response})
-        total_tokens.write(count_used_tokens(prompt, full_response))
         st.session_state.all_prompts += full_response
+        prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
+        total_tokens.write(prompt_token_count)
+        total_tokens.write(completion_token_count)
+        total_tokens.write(total_cost)
