@@ -82,8 +82,8 @@ PRICE_PROMPT = 1.102E-5
 PRICE_COMPLETION = 3.268E-5
 
 #MODEL = "claude-1"
-#MODEL = "claude-2"
-MODEL = "claude-3-opus-20240229"
+MODEL = "claude-2.1"
+#MODEL = "claude-3-opus-20240229"
 #MODEL = "claude-v1-100k"
 
 new_prompt = []
