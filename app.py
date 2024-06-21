@@ -81,10 +81,7 @@ REG_PROMPT = """
 PRICE_PROMPT = 1.102E-5
 PRICE_COMPLETION = 3.268E-5
 
-#MODEL = "claude-1"
-#MODEL = "claude-2.1"
-MODEL = "claude-3-opus-20240229"
-#MODEL = "claude-v1-100k"
+MODEL = "claude-3-5-sonnet-20240620"
 
 new_prompt = []
 
@@ -96,7 +93,7 @@ st.sidebar.title("Anthropic - ChatBot")
 st.sidebar.title("Wardley Mapping Mentor")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.0.2")
+st.sidebar.markdown("Current Version: 0.0.3")
 st.sidebar.markdown("Using claude-2 API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
