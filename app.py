@@ -1,6 +1,6 @@
 #Importing required packages
 import streamlit as st
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+import anthropic
 import uuid
 
 INIT_PROMPT = """
@@ -107,7 +107,7 @@ if "all_prompts" not in st.session_state:
 
 if user_claude_api_key:
     # If the user has provided an API key, use it
-    client=Anthropic.Anthropic(
+    client=anthropic.Anthropic(
       # defaults to os.environ.get("ANTHROPIC_API_KEY")
       api_key=user_claude_api_key,
     )
@@ -142,12 +142,12 @@ if user_claude_api_key:
                 full_response += response.completion
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
-        except Anthropic.APIConnectionError as e:
+        except anthropic.APIConnectionError as e:
             st.error("The server could not be reached")
             print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-        except Anthropic.RateLimitError as e:
+        except anthropic.RateLimitError as e:
             st.error("A 429 status code was received; we should back off a bit.")
-        except Anthropic.APIStatusError as e:
+        except anthropic.APIStatusError as e:
             st.error("Another non-200-range status code was received")
             st.error(e.status_code)
             st.error(e.response)
