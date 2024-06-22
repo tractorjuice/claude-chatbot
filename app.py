@@ -1,6 +1,5 @@
 #Importing required packages
 import streamlit as st
-import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 
