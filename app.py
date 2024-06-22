@@ -1,12 +1,14 @@
 # Importing required packages
-import uuid, os
 import streamlit as st
-from langchain_anthropic import ChatAnthropic
-from langchain_core.prompts import ChatPromptTemplate
+import uuid
+import math
+from langchain import LLMChain, PromptTemplate
+from langchain.chat_models import ChatAnthropic
+from langchain.prompts import ChatPromptTemplate
 
 # Initial prompts
 INIT_PROMPT = """
-\n\nHuman: You are MapMentor, a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping.
+You are MapMentor, a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping.
 Here are some important rules for the interaction:
 - Always stay in character, as MapMentor, a Wardley Mapping trainer.
 - If you are unsure how to respond, respond with another question.
@@ -74,15 +76,30 @@ I'm looking forward to exploring all aspects of Wardley Mapping with you in this
 """
 
 REG_PROMPT = """
-\n\nHuman: Here is the user's question about Wardley Mapping:
+Human: Here is the user's question about Wardley Mapping:
 <question>
 {QUESTION}
 </question>
-\n\nAssistant: [MapMentor] <response>
+Assistant: [MapMentor] <response>
 """
 
-# Model details
-MODEL = "claude-3-5-sonnet-20240620"
+# Streamlit configuration
+st.set_page_config(page_title="LangChain - ChatBot")
+st.sidebar.title("LangChain - ChatBot")
+st.sidebar.title("Wardley Mapping Mentor")
+st.sidebar.divider()
+st.sidebar.markdown("[Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
+st.sidebar.markdown("Current Version: 0.0.3")
+st.sidebar.markdown("Using LangChain API")
+st.sidebar.markdown(str(uuid.uuid4()))
+st.sidebar.divider()
+
+# Input for API key
+user_anthropic_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
+
+# Displaying token usage
+st.sidebar.markdown("Tokens")
+total_tokens = st.sidebar.empty()
 
 # Initializing session state variables
 if "session_id" not in st.session_state:
@@ -94,43 +111,27 @@ if "messages" not in st.session_state:
 if "all_prompts" not in st.session_state:
     st.session_state["all_prompts"] = INIT_PROMPT + TRAINING_PROMPT
 
-# Streamlit page configuration
-st.set_page_config(page_title="Anthropic - ChatBot")
-st.sidebar.title("Anthropic - ChatBot")
-st.sidebar.title("Wardley Mapping Mentor")
-st.sidebar.divider()
-st.sidebar.markdown("[Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.0.3")
-st.sidebar.markdown("Using claude-3.5 API")
-st.sidebar.markdown(st.session_state.session_id)
-st.sidebar.divider()
-
-# Input for API key
-user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
+# Function to count tokens and calculate cost (simplified for LangChain)
+def count_used_tokens(prompt, completion):
+    prompt_token_count = len(prompt.split())
+    completion_token_count = len(completion.split())
+    total_cost = 0  # Add actual cost calculation if needed
+    return prompt_token_count, completion_token_count, total_cost
 
 # Handling API key
-if user_claude_api_key:
-    os.environ["ANTHROPIC_API_KEY"] = user_claude_api_key
-    llm = ChatAnthropic(
-        api_key=user_claude_api_key,
-        model=MODEL,
-        temperature=0,
-        max_tokens=500,
-        timeout=None,
-        max_retries=2,
-    )
-    prompt_template = ChatPromptTemplate(
-        input_variables=["question"],
+if user_anthropic_api_key:
+    llm = ChatAnthropic(api_key=user_anthropic_api_key)
+
+    prompt_template = PromptTemplate(
+        input_variables=["QUESTION"],
         template=REG_PROMPT
     )
-    chain = LLMChain(
+    langchain_chain = LLMChain(
         llm=llm,
         prompt_template=prompt_template
     )
 else:
     st.warning("Please enter your Anthropic API key", icon="⚠️")
-else:
-    st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
 # Displaying chat messages
 new_prompt = []
@@ -141,7 +142,7 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 # Processing user input
-if user_claude_api_key:
+if user_anthropic_api_key:
     if user_input := st.chat_input("How can I help with Wardley Mapping?"):
         prompt = REG_PROMPT.format(QUESTION=user_input)
         st.session_state.all_prompts += prompt
@@ -152,23 +153,12 @@ if user_claude_api_key:
             message_placeholder = st.empty()
         full_response = ""
         try:
-            for response in client.completions.create(
-                prompt=st.session_state.all_prompts,
-                stop_sequences=["</response>"],
-                model=MODEL,
-                max_tokens_to_sample=500,
-                stream=True,
-                tags=["anthropic-chatbot", st.session_state.session_id]
-            ):
-                full_response += response.completion
-                message_placeholder.markdown(full_response + "▌")
+            # Generate response using LangChain
+            response = langchain_chain.run({"QUESTION": user_input})
+            full_response += response
             message_placeholder.markdown(full_response)
-        except anthropic.APIConnectionError:
-            st.error("The server could not be reached")
-        except anthropic.RateLimitError:
-            st.error("Rate limit exceeded. Please try again later.")
-        except anthropic.APIStatusError as e:
-            st.error(f"API error: {e.status_code}")
+        except Exception as e:
+            st.error(f"Error: {e}")
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
