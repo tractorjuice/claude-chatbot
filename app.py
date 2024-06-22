@@ -147,7 +147,7 @@ if user_claude_api_key:
         except anthropic.RateLimitError as e:
             st.error("A 429 status code was received; we should back off a bit.")
         except anthropic.APIStatusError as e:
-            st.error("Another non-200-range status code was received")
+            st.error("Another non-200-range status code was received\nTry again later.")
             st.error(e.status_code)
             st.error(e.response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
