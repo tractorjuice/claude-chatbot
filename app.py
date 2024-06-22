@@ -1,6 +1,6 @@
 #Importing required packages
 import streamlit as st
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+import anthropic
 import uuid
 import math
 
@@ -93,7 +93,7 @@ st.sidebar.title("Wardley Mapping Mentor")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.0.3")
-st.sidebar.markdown("Using claude-2 API")
+st.sidebar.markdown("Using claude-3.5 API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 
@@ -128,7 +128,7 @@ def count_used_tokens(prompt, completion):
 
 if user_claude_api_key:
     # If the user has provided an API key, use it
-    client=anthropic.Anthropic(
+    client=Anthropic(
       # defaults to os.environ.get("ANTHROPIC_API_KEY")
       api_key=user_claude_api_key,
     )
