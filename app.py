@@ -1,8 +1,8 @@
 # Importing required packages
+import uuid, os
 import streamlit as st
-import anthropic
-import uuid
-import math
+from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
 
 # Initial prompts
 INIT_PROMPT = """
@@ -81,19 +81,12 @@ REG_PROMPT = """
 \n\nAssistant: [MapMentor] <response>
 """
 
-# Pricing constants
-PRICE_PROMPT = 1.102E-5
-PRICE_COMPLETION = 3.268E-5
-
 # Model details
 MODEL = "claude-3-5-sonnet-20240620"
 
 # Initializing session state variables
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
-
-if "claude_model" not in st.session_state:
-    st.session_state["claude_model"] = MODEL
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": INTRO_PROMPT}]
@@ -115,27 +108,27 @@ st.sidebar.divider()
 # Input for API key
 user_claude_api_key = st.sidebar.text_input("Enter your Anthropic API Key:", placeholder="sk-...", type="password")
 
-# Displaying token usage
-st.sidebar.markdown("Tokens")
-total_tokens = st.sidebar.empty()
-
-# Function to count tokens and calculate cost
-def count_used_tokens(prompt, completion):
-    try:
-        prompt_token_count = client.count_tokens(prompt)
-        completion_token_count = client.count_tokens(completion)
-        prompt_cost = prompt_token_count * PRICE_PROMPT
-        completion_cost = completion_token_count * PRICE_COMPLETION
-        total_cost = prompt_cost + completion_cost
-        total_cost = math.ceil(total_cost * 100) / 100
-        return prompt_token_count, completion_token_count, total_cost
-    except Exception as e:
-        st.error(f"Error counting tokens: {e}")
-        return 0, 0, 0
-
 # Handling API key
 if user_claude_api_key:
-    client = anthropic.Anthropic(api_key=user_claude_api_key)
+    os.environ["ANTHROPIC_API_KEY"] = user_claude_api_key
+    llm = ChatAnthropic(
+        api_key=user_claude_api_key,
+        model=MODEL,
+        temperature=0,
+        max_tokens=500,
+        timeout=None,
+        max_retries=2,
+    )
+    prompt_template = ChatPromptTemplate(
+        input_variables=["question"],
+        template=REG_PROMPT
+    )
+    chain = LLMChain(
+        llm=llm,
+        prompt_template=prompt_template
+    )
+else:
+    st.warning("Please enter your Anthropic API key", icon="⚠️")
 else:
     st.warning("Please enter your Anthropic Claude API key", icon="⚠️")
 
