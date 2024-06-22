@@ -1,6 +1,5 @@
 #Importing required packages
 import streamlit as st
-import promptlayer
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 import uuid
 import math
@@ -8,7 +7,7 @@ import math
 INIT_PROMPT = """
 \n\nHuman: You are MapMentor a trainer in Wardley Mapping. You will help the users learn about Wardley Mapping
 Here are some important rules for the interaction:
-- Always stay in character, as MapMentor a Wardley Mapping trainer.  
+- Always stay in character, as MapMentor a Wardley Mapping trainer.
 - If you are unsure how to respond, respond with another question.
 - Always use a liberationism pedagogy training approach.
 - Remember to state which module of the course we are currently learning.
@@ -87,7 +86,7 @@ new_prompt = []
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
-    
+
 st.set_page_config(page_title="Anthropic - ChatBot")
 st.sidebar.title("Anthropic - ChatBot")
 st.sidebar.title("Wardley Mapping Mentor")
@@ -126,12 +125,9 @@ def count_used_tokens(prompt, completion):
         completion_token_count,
         total_cost
     )
-    
+
 if user_claude_api_key:
     # If the user has provided an API key, use it
-    # Swap out Anthropic for promptlayer
-    promptlayer.api_key = st.secrets["PROMPTLAYER"]
-    anthropic = promptlayer.anthropic
     client=anthropic.Anthropic(
       # defaults to os.environ.get("ANTHROPIC_API_KEY")
       api_key=user_claude_api_key,
@@ -144,7 +140,7 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             new_prompt.append(message["content"])
             st.markdown(message["content"])
-            
+
 if user_claude_api_key:
     if user_input := st.chat_input("How can I help with Wardley Mapping?"):
         prompt = REG_PROMPT.format(QUESTION = user_input)
@@ -162,7 +158,7 @@ if user_claude_api_key:
                 model=MODEL,
                 max_tokens_to_sample=500,
                 stream=True,
-                pl_tags=["anthropic-chatbot", st.session_state.session_id]
+                tags=["anthropic-chatbot", st.session_state.session_id]
             ):
                 full_response += response.completion
                 message_placeholder.markdown(full_response + "▌")
@@ -175,7 +171,7 @@ if user_claude_api_key:
         except anthropic.APIStatusError as e:
             st.error("Another non-200-range status code was received")
             st.error(e.status_code)
-            st.error(e.response)      
+            st.error(e.response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         st.session_state.all_prompts += full_response
         prompt_token_count, completion_token_count, total_cost = count_used_tokens(prompt, full_response)
