@@ -128,7 +128,7 @@ def count_used_tokens(prompt, completion):
 
 if user_claude_api_key:
     # If the user has provided an API key, use it
-    client=Anthropic(
+    client=anthropic.Anthropic(
       # defaults to os.environ.get("ANTHROPIC_API_KEY")
       api_key=user_claude_api_key,
     )
